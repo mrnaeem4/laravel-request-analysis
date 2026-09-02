@@ -1,0 +1,37 @@
+{
+    "name": "mrnaeem4/laravel-request-analysis",
+    "description": "Laravel middleware that intercepts incoming HTTP requests and writes structured JSON request logs (JSONL) to the Laravel storage/logs directory with daily rotation and gzip compression.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "request-log",
+        "jsonl",
+        "middleware",
+        "log-rotation"
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^12.0",
+        "illuminate/http": "^12.0",
+        "illuminate/support": "^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MrNaeem\\LaravelRequestAnalysis\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MrNaeem\\LaravelRequestAnalysis\\RequestLogServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "support": {
+        "issues": "https://github.com/mrnaeem4/laravel-request-analysis/issues"
+    }
+}
