@@ -1,0 +1,61 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            laravel: '12.*'
+            testbench: '^10.0'
+          - php: '8.3'
+            laravel: '12.*'
+            testbench: '^10.0'
+          - php: '8.3'
+            laravel: '13.*'
+            testbench: '^11.0'
+          - php: '8.4'
+            laravel: '13.*'
+            testbench: '^11.0'
+          - php: '8.5'
+            laravel: '13.*'
+            testbench: '^11.0'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, fileinfo
+          coverage: none
+
+      - name: Install dependencies
+        env:
+          LARAVEL: ${{ matrix.laravel }}
+          TESTBENCH: ${{ matrix.testbench }}
+        run: |
+          composer require "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}" --no-interaction --no-update
+          composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Run test suite
+        run: vendor/bin/phpunit --testdox

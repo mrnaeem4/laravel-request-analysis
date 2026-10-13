@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- PHPUnit test suite (Orchestra Testbench) covering the middleware, service,
+  service provider, artisan command, redaction, truncation, CIDR whitelisting,
+  rotation and file-metadata extraction. Verified green on Laravel 12.x
+  (PHP 8.2) and Laravel 13.x (PHP 8.3–8.5).
+- GitHub Actions `Tests` workflow with a PHP / Laravel version matrix, running
+  with least-privilege permissions (`contents: read`) and without persisting
+  checkout credentials.
+
 ### Changed
 
 - Widened the Illuminate constraints to `^12.0 || ^13.0` so the package is

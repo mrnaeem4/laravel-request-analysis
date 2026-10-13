@@ -3,5 +3,6 @@
 !.env.example
 /vendor/
 /composer.lock
+/.phpunit.cache/
 *.log
 *.gz
