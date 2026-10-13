@@ -292,14 +292,48 @@ class RequestLogService
             return false;
         }
 
-        $dangerous = [
+        $parts = explode('.', $filename);
+
+        // A dotfile such as ".htaccess" has an empty leading segment; its real
+        // extension is the segment after the dot, so drop the empty part.
+        if ($parts !== [] && $parts[0] === '') {
+            array_shift($parts);
+        }
+
+        // A filename with fewer than two dot-separated parts has no hidden
+        // extension to confuse a server with.
+        if (count($parts) < 2) {
+            return false;
+        }
+
+        // Any segment except the final one is a candidate "hidden" extension
+        // (e.g. shell.php.jpg). The final segment is the extension the server
+        // may actually execute (e.g. evil.jpg.php). Both are suspicious.
+        foreach ($parts as $segment) {
+            if ($segment === '') {
+                continue;
+            }
+
+            if (in_array(strtolower($segment), $this->dangerousExtensions(), true)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Extensions commonly associated with server-side code execution.
+     *
+     * @return list<string>
+     */
+    protected function dangerousExtensions(): array
+    {
+        return [
             'php', 'phtml', 'php3', 'php4', 'php5', 'php7',
             'phps', 'phar', 'pht', 'shtml', 'cgi', 'pl', 'py',
             'jsp', 'asp', 'aspx', 'htaccess', 'inc',
         ];
-
-        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        return in_array($ext, $dangerous, true);
     }
 
     protected function buildBody(array $data, bool $isJson, bool $isMultipart, bool $isFormUrl): string

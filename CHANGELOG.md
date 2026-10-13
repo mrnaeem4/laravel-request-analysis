@@ -28,6 +28,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   while Laravel 13.x requires PHP 8.3+; the package itself still requires
   PHP 8.2+.
 
+### Fixed
+
+- `hasDoubleExtension()` now inspects every dot-separated segment of a
+  filename against the dangerous-extension list, so it detects both a
+  dangerous extension hidden before a harmless one (`shell.php.jpg`) and a
+  dangerous extension in the final, executable position (`evil.jpg.php`).
+  Previously only the final extension was checked, which missed
+  `shell.php.jpg`; an intermediate revision that checked only non-final
+  segments missed `evil.jpg.php`.
+
 ## [1.0.0] - 2026-09-02
 
 ### Added
