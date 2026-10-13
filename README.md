@@ -8,7 +8,7 @@ compression.
 
 > Local logging only. No external server, no queue, no Guzzle. This is the
 > Laravel counterpart of [ci4-request-analysis](https://github.com/mrnaeem4/ci4-request-analysis).
-> Laravel 12+.
+> Laravel 12.x and 13.x.
 
 ## Features
 
@@ -29,7 +29,7 @@ compression.
 ## Requirements
 
 - PHP 8.2+
-- Laravel 12.x
+- Laravel 12.x or 13.x (Laravel 13 requires PHP 8.3+)
 
 ## Installation
 
@@ -49,7 +49,7 @@ you can override defaults.
 ### 2. Register middleware alias
 
 The service provider already registers the `requestlog` alias. For Laravel
-11/12+, make sure `bootstrap/app.php` includes the middleware alias (auto-
+11/12/13+, make sure `bootstrap/app.php` includes the middleware alias (auto-
 discovery should handle it, but verify):
 
 ```php
@@ -166,6 +166,22 @@ Minimal sample code under `sample/`:
 
 - `sample/routes/web.php` — route group with `requestlog` middleware
 - `sample/app/Http/Controllers/HomeController.php` — `post` + `upload` demo
+
+## Testing
+
+```bash
+composer install
+composer test
+```
+
+The suite runs on Orchestra Testbench and is verified against Laravel 12.x
+(PHP 8.2) and Laravel 13.x (PHP 8.3+). CI exercises the matrix below on every
+push:
+
+| Laravel | PHP |
+|---|---|
+| 12.x | 8.2, 8.3 |
+| 13.x | 8.3, 8.4, 8.5 |
 
 ## Changelog
 

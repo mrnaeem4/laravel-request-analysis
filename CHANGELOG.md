@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Widened the Illuminate constraints to `^12.0 || ^13.0` so the package is
+  installable on Laravel 13.x while remaining compatible with Laravel 12.x.
+- Narrowed the development `phpunit/phpunit` constraint to `^11.5`, the only
+  version range satisfiable by both Orchestra Testbench 10.x (Laravel 12) and
+  11.x (Laravel 13).
+- Documented Laravel 13.x support. Laravel 12.x continues to run on PHP 8.2+,
+  while Laravel 13.x requires PHP 8.3+; the package itself still requires
+  PHP 8.2+.
+
 ## [1.0.0] - 2026-09-02
 
 ### Added

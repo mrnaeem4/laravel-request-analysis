@@ -12,13 +12,22 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/contracts": "^12.0",
-        "illuminate/http": "^12.0",
-        "illuminate/support": "^12.0"
+        "illuminate/contracts": "^12.0 || ^13.0",
+        "illuminate/http": "^12.0 || ^13.0",
+        "illuminate/support": "^12.0 || ^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0 || ^11.0",
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
             "MrNaeem\\LaravelRequestAnalysis\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MrNaeem\\LaravelRequestAnalysis\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -30,6 +39,9 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit"
     },
     "support": {
         "issues": "https://github.com/mrnaeem4/laravel-request-analysis/issues"
